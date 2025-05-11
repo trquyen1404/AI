@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #2c2c2c; /* Màu nền tối hơn cho toàn trang */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.app-container {
+    width: 360px; /* Kích thước gần giống cửa sổ desktop nhỏ */
+    height: 640px;
+    background-color: #1e1e1e; /* Màu nền chính của ứng dụng */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.app-header {
+    padding: 20px;
+    text-align: center;
+    background-color: #111; /* Nền tối hơn cho header */
+}
+
+.app-header h1 {
+    margin: 0;
+    color: #00aaff; /* Màu xanh dương cho tiêu đề */
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* Nếu bạn dùng logo dạng ảnh:
+.app-header .logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.app-header h1 {
+    display: inline-block;
+    vertical-align: middle;
+}
+*/
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.info-image-placeholder {
+    width: 280px;
+    height: 180px;
+    background-color: #333;
+    border: 2px dashed #555;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ccc;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.info-image-placeholder p {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.disability-icons span {
+    font-size: 24px;
+    margin: 0 8px;
+}
+
+
+.navigation-buttons {
+    display: flex;
+    flex-direction: column; /* Các nút xếp chồng lên nhau */
+    padding: 20px;
+    gap: 15px; /* Khoảng cách giữa các nút */
+}
+
+.navigation-buttons button {
+    background-color: #0077cc; /* Màu xanh dương cho nút */
+    color: white;
+    border: none;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Các nút chiếm toàn bộ chiều rộng của container cha */
+    box-sizing: border-box; /* Để padding không làm tăng kích thước */
+}
+
+.navigation-buttons button:hover {
+    background-color: #005fa3; /* Màu đậm hơn khi hover */
+}
+
+.navigation-buttons button:active {
+    background-color: #004c8c; /* Màu đậm hơn nữa khi nhấn */
+}
+
+/* Để các nút nằm ngang như trong ảnh, bạn có thể dùng:
+.navigation-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.navigation-buttons button {
+    width: auto;
+    padding: 15px 20px;
+}
+Nhưng trong ảnh, các nút có vẻ chiếm nhiều không gian hơn, nên có thể ban đầu chúng được thiết kế để xếp dọc
+hoặc là các khối riêng biệt. Hiện tại tôi làm theo dạng các khối riêng biệt, rộng.
+Nếu bạn muốn chúng thành 3 cột, bạn có thể thay đổi flex-direction thành row và điều chỉnh width.
+*/

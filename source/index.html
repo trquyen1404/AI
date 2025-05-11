@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ứng dụng Webcam</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+   body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #fffefe; /* Màu nền đen giống ảnh */
+   }
+
+   #initialScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #333; /* Màu nền xám đậm cho container */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    z-index: 20; /* Đảm bảo ở trên video và canvas ban đầu */
+   }
+
+   #initialScreen img {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+   }
+
+   #initialScreen h1 {
+    color: #eee;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+   }
+
+   #initialScreen p {
+    color: #ccc;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+   }
+
+   #buttonContainer {
+    display: flex;
+    gap: 20px;
+   }
+
+   .button {
+    background-color: #444;
+    color: #eee;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+   }
+
+   .button:hover {
+    background-color: #555;
+   }
+
+   #readingAppLogo {
+    margin-top: 40px;
+    max-width: 200px;
+   }
+
+   #webcamVideo, #videoCanvas {
+    display: none; /* Ẩn khi chưa bật */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    z-index: 10; /* Đặt z-index cao hơn body nhưng dưới initialScreen ban đầu */
+    cursor: grab; /* Thêm cursor grab cho phép kéo */
+   }
+
+   #overlayText {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: limegreen;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 15; /* Đảm bảo overlay text trên video và canvas */
+   }
+  </style>
+ </head>
+ <body>
+  <div id="initialScreen">
+   <img src="path/to/your/gestureai_logo_white.png" alt="GestureAI Logo">
+   <h1>GestureAI</h1>
+   <p style="color: red; font-weight: bold;">Người dùng nhấn vào chức năng phù hợp nhất để sử dụng "Từng chữ cái"</p>
+   <div id="buttonContainer">
+    <button class="button" onclick="startApp('tunchucai')">Từng chữ cái</button>
+    <button class="button" onclick="startApp('tungcumtu')">Từng cụm từ</button>
+    <button class="button" onclick="startApp('hocngonnguhinhthe')">Học ngôn ngữ hình thể</button>
+   </div>
+   <img id="readingAppLogo" src="path/to/your/reading_app_logo_white.png" alt="Reading App Logo">
+  </div>
+
+  <video id="webcamVideo" width="640" height="480" autoplay></video>
+  <canvas id="videoCanvas" width="640" height="480"></canvas>
+  <div id="overlayText"></div>
+
+  <script src="script.js"></script>
+  <script>
+   const webcamVideo = document.getElementById('webcamVideo');
+   const videoCanvas = document.getElementById('videoCanvas');
+   let isDragging = false;
+   let offsetX, offsetY;
+
+   webcamVideo.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    webcamVideo.style.cursor = 'grabbing';
+    offsetX = e.clientX - webcamVideo.getBoundingClientRect().left;
+    offsetY = e.clientY - webcamVideo.getBoundingClientRect().top;
+   });
+
+   document.addEventListener('mouseup', () => {
+    if (isDragging) {
+     isDragging = false;
+     webcamVideo.style.cursor = 'grab';
+    }
+   });
+
+   document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const x = e.clientX - offsetX;
+    const y = e.clientY - offsetY;
+
+    webcamVideo.style.left = `${x}px`;
+    webcamVideo.style.top = `${y}px`;
+   });
+
+   function startApp(mode) {
+    document.getElementById('initialScreen').style.display = 'none';
+    webcamVideo.style.display = 'block';
+    videoCanvas.style.display = 'block';
+    startWebcam();
+    console.log('Ứng dụng bắt đầu ở chế độ:', mode);
+   }
+
+    //Gọi startWebcam nếu bạn muốn cam tự động bật khi trang tải (bỏ comment dòng này)
+    startWebcam();
+  </script>
+ </body>
+ </html>
